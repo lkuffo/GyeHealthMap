@@ -1,0 +1,136 @@
+.hm-healthmap-container{
+    background-color: #f4f5ff57;
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    padding: 32px;
+    margin-top: 64px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin-bottom: 64px;
+}
+
+.hm-healthmap-main-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 32px;
+}
+
+.hm-healthmap-map-info{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.hm-healthmap-map{
+    width: 60%;
+    height: 600px;
+}
+
+.hm-map{
+    width: 100%;
+    height: 100%;
+    border: 0px;
+}
+
+.hm-healthmap-map-info{
+    width: 38%;
+}
+
+.hm-healthmap-map,
+.hm-healthmap-selectors,
+.hm-healthmap-complement{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-color: #fff;
+    padding: 16px;
+    margin: 8px 4px 8px 4px;
+}
+
+
+
+.hm-healthmap-image{
+    position: absolute;
+    height: 125px;
+    align-self: center;
+    width: 125px;
+    top: -80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    margin-right: 16px;
+    border: 3px solid #b5d6df;
+}
+
+.hm-healthmap-back{
+    display: flex;
+    position: absolute;
+    top: -80px;
+    left: 0;
+}
+
+.hm-healthmap-back a{
+    display: flex;
+    flex-direction: column;
+}
+
+.hm-select-date{
+    border-radius: 2px;
+    border: 1px solid #c5c5c5;
+    width: 110px;
+    background: #f6f6f6;
+    font-size: 1em;
+    height: 34px;
+    margin-left: 4px;
+}
+
+.hm-select-date-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.hm-filter-box{
+    margin-top: 16px;
+    display: flex;
+    justify-content: start;
+}
+
+.hm-healthmap-combo-select{
+    margin-left: 16px;
+}
+
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+}
+.custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+}
+.custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+.hm-fields-label{
+    font-size: 14px;
+
+}

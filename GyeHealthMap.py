@@ -10,7 +10,14 @@ def index():
 
 @app.route('/healthmap/<string:institution>')
 def hello_world(institution):
-    return 'Has accedido a la institucion', institution
+    mapping = {
+        "hlb": "HOSPITAL LEON BECERRA",
+        "all": "TODOS LOS HOSPITALES"
+    }
+    institution_name = mapping[institution]
+    return render_template('healthmap.html',
+                           institution=institution,
+                           name=institution_name)
 
 if __name__ == '__main__':
     app.run(debug=True)
