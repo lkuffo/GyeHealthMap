@@ -5,36 +5,90 @@
 
     <body class="hm-index-body text-center">
 
-    <div class="hm-container cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <div class="cover-container d-flex h-100 mx-auto flex-column">
 
         {% include "navbar.html" %}
 
-        <main role="main" class="inner cover">
-            <h1 class="cover-heading">Cover your page.</h1>
-            <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-            <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-            </p>
-        </main>
+        <div class="hm-container">
 
-        <footer class="mastfoot mt-auto">
-            <div class="inner">
-                <p></p>
-            </div>
-        </footer>
+            <main role="main" class="inner cover">
+                <h1 class="cover-heading">Instituciones Disponibles</h1>
+
+                <div class="hm-institutions-container">
+
+                    <div id="hm-id-all" class="hm-institution-box">
+                        <div id="colours">
+                            <div id="stage1"></div>
+                            <div id="stage2"></div>
+                            <div id="stage3"></div>
+                            <div id="stage4"></div>
+                            <div id="stage5"></div>
+                            <div id="stage6"></div>
+                            <div id="stage7"></div>
+                            <div id="stage8"></div>
+                            <div id="stage9"></div>
+                        </div>
+                        <div class="hm-institution-container">
+                            <div class="hm-institution-content">
+                                <div class="hm-institution-image" style="background-image: url('/static/images/gyelogo.png');">
+
+                                </div>
+                                <div class="hm-institution-info">
+                                    <h3 class="hm-institution-title">Todos los Hospitales</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="hm-id-hlb" class="hm-institution-box">
+                        <div id="colours">
+                            <div id="stage1"></div>
+                            <div id="stage2"></div>
+                            <div id="stage3"></div>
+                            <div id="stage4"></div>
+                            <div id="stage5"></div>
+                            <div id="stage6"></div>
+                            <div id="stage7"></div>
+                            <div id="stage8"></div>
+                            <div id="stage9"></div>
+                        </div>
+                        <div class="hm-institution-container">
+                            <div class="hm-institution-content">
+                                <div class="hm-institution-image" style="background-image: url('/static/images/hlb.jpg');">
+
+                                </div>
+                                <div class="hm-institution-info">
+                                    <h3 class="hm-institution-title">Hospital Leon Becerra</h3>
+                                    <h6 class="hm-institucion-detail"> <strong>Tipo: </strong> Infantil </h6>
+                                    <h6 class="hm-institucion-detail"> <strong>Numero de Pacientes: </strong> 15.892 </h6>
+                                    <h6 class="hm-institucion-detail">
+                                        <strong>
+                                            <a href="https://www.bspi.org/hospital_leon_becerra.html" target="_blank">Mas Informacion</a>
+                                        </strong>
+                                    </h6>
+                                </div>
+                            </div>
+{#                            <a class="hm-institucion-go">#}
+{#                                <div class="hm-institucion-icon">#}
+{#                                    <i class="material-icons" style="font-size: 36px;">arrow_right</i>#}
+{#                                </div>#}
+{#                            </a>#}
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <footer class="mastfoot mt-auto">
+                <div class="inner">
+                    <p></p>
+                </div>
+            </footer>
+        </div>
+
+
 
     </div>
-
-{#            <div class="card" style="width: 18rem;">#}
-{#              <img class="card-img-top" src="..." alt="Card image cap">#}
-{#              <div class="card-body">#}
-{#                <h5 class="card-title">Card title</h5>#}
-{#                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
-{#                <a href="#" class="btn btn-primary">Go somewhere</a>#}
-{#              </div>#}
-{#            </div>#}
-
-{#        </div>#}
 
     {% include "footer.html" %}
 

@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/healthmap/<string:institution>/')
+@app.route('/healthmap/<string:institution>')
 def hello_world(institution):
     return 'Has accedido a la institucion', institution
 
