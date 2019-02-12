@@ -179,15 +179,18 @@ body::after{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.hm-institution-box{
+.hm-institution-box, .hm-person-box{
     margin: 16px;
     margin-top: 24px; /* 16px + 8px */
     display: flex;
     position: relative;
 }
 
-.hm-institutions-container{
+
+
+.hm-institutions-container, .hm-persons-container{
     margin-top: 32px;
+    justify-content: space-around;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

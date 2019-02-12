@@ -8,6 +8,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/contacto')
+def contact():
+    return render_template('contacto.html')
+
 @app.route('/healthmap/<string:institution>')
 def hello_world(institution):
     mapping = {

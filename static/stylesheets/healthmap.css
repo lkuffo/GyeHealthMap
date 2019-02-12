@@ -1,5 +1,5 @@
 .hm-healthmap-container{
-    background-color: #f4f5ff57;
+    background-color: rgba(244, 245, 255, 0.60);
     width: 100%;
     height: auto;
     display: flex;
@@ -16,7 +16,6 @@
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 32px;
 }
 
 .hm-healthmap-map-info{
@@ -28,7 +27,7 @@
 
 .hm-healthmap-map{
     width: 60%;
-    height: 600px;
+    height: 650px;
 }
 
 .hm-map{
@@ -131,6 +130,20 @@
 }
 
 .hm-fields-label{
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: bold;
+}
 
+.ui-widget{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: baseline;
+    justify-items: center;
+}
+
+.ui-widget-content{
+    width: 200px;
 }
