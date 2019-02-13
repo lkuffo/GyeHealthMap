@@ -1,1 +1,1 @@
-web: gunicorn GyeHealthMap:GyeHealthMap
+web: gunicorn app:GyeHealthMap
