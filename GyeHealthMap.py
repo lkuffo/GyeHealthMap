@@ -36,4 +36,4 @@ def healthMap(institution_id):
                            cie10=c.getCIE10forInstitution(institution_id))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
