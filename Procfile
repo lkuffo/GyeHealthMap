@@ -1,1 +1,1 @@
-web: gunicorn flask.app:GyeHealthMap
+web: gunicorn app:GyeHealthMap
