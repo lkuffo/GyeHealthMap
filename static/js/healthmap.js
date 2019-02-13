@@ -1,6 +1,19 @@
 $(document).ready(function(){
 
     var institutionId = $(".hm-healthmap-map").attr("id");
+    var mapSRC = "/static/maps/" + institutionId + "/Casos Absolutos.html";
+    var notFoundSRC = "/static/maps/not_found.html";
+
+    $.get(mapSRC, function(data, textStatus) {
+        if (textStatus === "success") {
+            // execute a success code
+            $(".hm-map").attr("src", mapSRC);
+        } else {
+            $(".hm-map").attr("src", notFoundSRC);
+        }
+    }).fail(function(){
+        $(".hm-map").attr("src", notFoundSRC);
+    });
 
     // START DATE PICKER
     var dateFormat = "mm/dd/yy",
@@ -181,13 +194,22 @@ $(document).ready(function(){
     // MAPS GENERATION LOGIC
 
     filterActionButton.click(function(){
-        var mapSRC = "";
         var selectedCie10 = comboboxCie10.next().children(":first").val();
         if (selectedCie10 !== "") {
             // call endpoint that should verify if map already exist,
             // if not, then its created. After a response is acquired, do the following -->
             mapSRC = "/static/maps/" + institutionId + "/" + selectedCie10 + ".html";
-            $(".hm-map").attr("src", mapSRC);
+            $.get(mapSRC, function(data, textStatus) {
+                if (textStatus === "success") {
+                    // execute a success code
+                    $(".hm-map").attr("src", mapSRC);
+                } else {
+                    $(".hm-map").attr("src", notFoundSRC);
+                }
+            }).fail(function(){
+                $(".hm-map").attr("src", notFoundSRC);
+            });
+
             return;
         }
         var selectedAgrupacion = comboboxAgrupacion.next().children(":first").val();
