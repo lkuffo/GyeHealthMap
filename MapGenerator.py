@@ -3,7 +3,6 @@ from bokeh.io import output_file
 from bokeh.models import ColumnDataSource, HoverTool, LogColorMapper, GMapOptions
 from bokeh.plotting import gmap
 from bokeh.core import json_encoder
-import operator
 from shapely.geometry import Polygon, Point
 from shapely.prepared import prep
 import json

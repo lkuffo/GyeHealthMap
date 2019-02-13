@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    var institutionId = $(".hm-healthmap-map").attr("id");
+
     // START DATE PICKER
     var dateFormat = "mm/dd/yy",
       from = $( "#from" )
@@ -34,7 +36,8 @@ $(document).ready(function(){
     }
 
 
-    // CIE 10 AUTOCOMPLETE
+    // AUTOCOMPLETE
+
     $.widget( "custom.combobox", {
       _create: function() {
         this.wrapper = $( "<span>" )
@@ -165,7 +168,33 @@ $(document).ready(function(){
       }
     });
 
-    $( "#combobox" ).combobox();
-    $( "#combobox-cie10" ).combobox();
+    var comboboxCie10 = $("#combobox-cie10");
+    var comboboxCapitulo = $("#combobox-capitulo");
+    var comboboxAgrupacion = $( "#combobox-agrupacion" );
+    var filterActionButton = $("#hm-filter-action");
+
+    comboboxCapitulo.combobox();
+    comboboxAgrupacion.combobox();
+    comboboxCie10.combobox();
+
+
+    // MAPS GENERATION LOGIC
+
+    filterActionButton.click(function(){
+        var mapSRC = "";
+        var selectedCie10 = comboboxCie10.next().children(":first").val();
+        if (selectedCie10 !== "") {
+            // call endpoint that should verify if map already exist,
+            // if not, then its created. After a response is acquired, do the following -->
+            mapSRC = "/static/maps/" + institutionId + "/" + selectedCie10 + ".html";
+            $(".hm-map").attr("src", mapSRC);
+            return;
+        }
+        var selectedAgrupacion = comboboxAgrupacion.next().children(":first").val();
+        if (selectedAgrupacion !== "") {
+            mapSRC = "/static/maps/" + institutionId + "/" + selectedAgrupacion + ".html";
+            //$(".hm-map").attr(mapSRC);
+        }
+    });
 
 });

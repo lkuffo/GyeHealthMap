@@ -147,3 +147,12 @@
 .ui-widget-content{
     width: 200px;
 }
+
+.ui-menu-item{
+    font-size: 12px;
+}
+
+.hm-action-button{
+    margin-top: 16px;
+    margin-bottom: 0px !important;
+}
