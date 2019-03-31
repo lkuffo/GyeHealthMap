@@ -17,9 +17,12 @@
                     <h1 class="hm-page-title"> {{ institution["name"] }}</h1>
                     <div class="hm-healthmap-main-box">
                         <div id="{{ institution["id"] }}" class="hm-healthmap-map">
-                            <iframe class="hm-map" src="">
+{#                            <iframe class="hm-map" src="">#}
+{##}
+{#                            </iframe>#}
+                            <div id="map" style="height: 100%; width: 100%;">
 
-                            </iframe>
+                            </div>
                         </div>
                         <div class="hm-healthmap-map-info">
                             <div class="hm-healthmap-selectors">

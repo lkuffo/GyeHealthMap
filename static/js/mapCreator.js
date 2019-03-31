@@ -3,15 +3,15 @@ var map;
 var info;
 
 $(document).ready(function(){
-    initMap();
+    initMap(" Casos Absolutos");
 });
 
-function initMap(){
+function initMap(measure, institutionName){
 
-    $.getJSON('gye/GYEv1.geojson', function(gyeData) {
-
+    $.getJSON('/static/gye/data.geojson', function(gyeData) {
+        console.log(gyeData);
         var mapboxAccessToken = 'pk.eyJ1IjoibGt1ZmZvIiwiYSI6ImNqdHdmZjFuazBqc3A0M3J6bXV5a3Vyd2wifQ.vj3X2kc1lmQuEyyWbtbCDg';
-        map = L.map('map').setView([37.8, -96], 4);
+        map = L.map('map').setView([-2.1708, -79.9121], 12);
 
         info = L.control();
 
@@ -22,9 +22,9 @@ function initMap(){
         };
 
         info.update = function (props) {
-            this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
-                '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-                : 'Hover over a state');
+            this._div.innerHTML = '<h4>MAPA EPIDEMIOLÓGICO</h4>' +  (props ?
+                '<b>' + props.name + '</b><br />' + props.density + measure
+                : 'Acerca el mouse al sector');
         };
 
         var legend = L.control({position: 'bottomright'});
@@ -32,7 +32,7 @@ function initMap(){
         legend.onAdd = function (map) {
 
             var div = L.DomUtil.create('div', 'info legend'),
-                grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+                grades = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
                 labels = [];
 
             // loop through our density intervals and generate a label with a colored square for each interval
@@ -62,11 +62,11 @@ function initMap(){
 }
 
 function getColor(d) {
-    return d > 1000 ? '#800026' :
-           d > 500  ? '#BD0026' :
-           d > 200  ? '#E31A1C' :
-           d > 100  ? '#FC4E2A' :
-           d > 50   ? '#FD8D3C' :
+    return d > 95 ? '#800026' :
+           d > 90  ? '#BD0026' :
+           d > 80  ? '#E31A1C' :
+           d > 60  ? '#FC4E2A' :
+           d > 40   ? '#FD8D3C' :
            d > 20   ? '#FEB24C' :
            d > 10   ? '#FED976' :
                       '#FFEDA0';

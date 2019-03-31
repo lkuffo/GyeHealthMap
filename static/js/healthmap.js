@@ -195,28 +195,33 @@ $(document).ready(function(){
 
     filterActionButton.click(function(){
         var selectedCie10 = comboboxCie10.next().children(":first").val();
-        if (selectedCie10 !== "") {
+
+        // call endpoint to re-write data.geojson
+
+        map.remove();
+        initMap("cambiado");
+        //if (selectedCie10 !== "") {
             // call endpoint that should verify if map already exist,
             // if not, then its created. After a response is acquired, do the following -->
-            mapSRC = "/static/maps/" + institutionId + "/" + selectedCie10 + ".html";
-            $.get(mapSRC, function(data, textStatus) {
-                if (textStatus === "success") {
-                    // execute a success code
-                    $(".hm-map").attr("src", mapSRC);
-                } else {
-                    $(".hm-map").attr("src", notFoundSRC);
-                }
-            }).fail(function(){
-                $(".hm-map").attr("src", notFoundSRC);
-            });
+            // mapSRC = "/static/maps/" + institutionId + "/" + selectedCie10 + ".html";
+            // $.get(mapSRC, function(data, textStatus) {
+            //     if (textStatus === "success") {
+            //         // execute a success code
+            //         $(".hm-map").attr("src", mapSRC);
+            //     } else {
+            //         $(".hm-map").attr("src", notFoundSRC);
+            //     }
+            // }).fail(function(){
+            //     $(".hm-map").attr("src", notFoundSRC);
+            // });
 
-            return;
-        }
-        var selectedAgrupacion = comboboxAgrupacion.next().children(":first").val();
-        if (selectedAgrupacion !== "") {
-            mapSRC = "/static/maps/" + institutionId + "/" + selectedAgrupacion + ".html";
+            //return;
+        //}
+        //var selectedAgrupacion = comboboxAgrupacion.next().children(":first").val();
+        //if (selectedAgrupacion !== "") {
+        //    mapSRC = "/static/maps/" + institutionId + "/" + selectedAgrupacion + ".html";
             //$(".hm-map").attr(mapSRC);
-        }
+        //}
     });
 
 });

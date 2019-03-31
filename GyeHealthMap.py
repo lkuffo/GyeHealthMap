@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session, jsonify
 from CONSTANTS import CONSTANTS
+from MapGenerator import MapGenerator
 import os
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
@@ -35,5 +36,21 @@ def healthMap(institution_id):
                            agrupacion=c.agrupaciones,
                            cie10=c.getCIE10forInstitution(institution_id))
 
+@app.route('/obtainMeasures', methods=["POST"])
+def obtainMeasures():
+    startDate = session["start"]
+    endDate = session["end"]
+    institution = session["institution"]
+    capitulo = session["capitulo"]
+    agrupacion = session["agrupacion"]
+    cie10 = session["cie10"]
+    MG = MapGenerator(institution, capitulo, agrupacion, cie10, startDate, endDate)
+    status = MG.generateMap()
+
+    return jsonify(
+        status = status
+    )
+
+
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
