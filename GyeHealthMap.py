@@ -1,4 +1,10 @@
-from flask import Flask, render_template, session, jsonify
+# encoding=utf8
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+from flask import Flask, render_template, session, jsonify, request
 from CONSTANTS import CONSTANTS
 from MapGenerator import MapGenerator
 import os
@@ -38,19 +44,20 @@ def healthMap(institution_id):
 
 @app.route('/obtainMeasures', methods=["POST"])
 def obtainMeasures():
-    startDate = session["start"]
-    endDate = session["end"]
-    institution = session["institution"]
-    capitulo = session["capitulo"]
-    agrupacion = session["agrupacion"]
-    cie10 = session["cie10"]
-    MG = MapGenerator(institution, capitulo, agrupacion, cie10, startDate, endDate)
-    status = MG.generateMap()
-
+    startDate = request.form.get("start")
+    endDate = request.form.get("end")
+    institution = request.form.get("institution")
+    capitulo = request.form.get("capitulo")
+    agrupacion = request.form.get("agrupacion")
+    cie10 = request.form.get("cie10")
+    if cie10 != "" and cie10:
+        cie10 = cie10.split("-")[0]
+    MG = MapGenerator(app, institution, capitulo, agrupacion, cie10, startDate, endDate)
+    geojson = MG.generateMap()
     return jsonify(
-        status = status
+        gyeData = geojson
     )
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, threaded=True)

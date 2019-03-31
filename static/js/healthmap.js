@@ -1,18 +1,17 @@
 $(document).ready(function(){
 
     var institutionId = $(".hm-healthmap-map").attr("id");
-    var mapSRC = "/static/maps/" + institutionId + "/Casos Absolutos.html";
-    var notFoundSRC = "/static/maps/not_found.html";
 
-    $.get(mapSRC, function(data, textStatus) {
-        if (textStatus === "success") {
-            // execute a success code
-            $(".hm-map").attr("src", mapSRC);
-        } else {
-            $(".hm-map").attr("src", notFoundSRC);
-        }
-    }).fail(function(){
-        $(".hm-map").attr("src", notFoundSRC);
+    $.post("/obtainMeasures", {
+        start: null,
+        end: null,
+        institution: institutionId,
+        capitulo: null,
+        agrupacion: null,
+        cie10: "all"
+    }, function(data){
+        var gyeData = data.gyeData;
+        initMap(" Casos Absolutos", "Casos Totales", gyeData);
     });
 
     // START DATE PICKER
@@ -195,33 +194,23 @@ $(document).ready(function(){
 
     filterActionButton.click(function(){
         var selectedCie10 = comboboxCie10.next().children(":first").val();
+        var selectedAgrupacion = comboboxAgrupacion.next().children(":first").val();
+        var selectedCapitulo = comboboxCapitulo.next().children(":first").val();
+        var selectedFrom = $("#from").val();
+        var selectedEnd = $("#to").val();
 
-        // call endpoint to re-write data.geojson
-
-        map.remove();
-        initMap("cambiado");
-        //if (selectedCie10 !== "") {
-            // call endpoint that should verify if map already exist,
-            // if not, then its created. After a response is acquired, do the following -->
-            // mapSRC = "/static/maps/" + institutionId + "/" + selectedCie10 + ".html";
-            // $.get(mapSRC, function(data, textStatus) {
-            //     if (textStatus === "success") {
-            //         // execute a success code
-            //         $(".hm-map").attr("src", mapSRC);
-            //     } else {
-            //         $(".hm-map").attr("src", notFoundSRC);
-            //     }
-            // }).fail(function(){
-            //     $(".hm-map").attr("src", notFoundSRC);
-            // });
-
-            //return;
-        //}
-        //var selectedAgrupacion = comboboxAgrupacion.next().children(":first").val();
-        //if (selectedAgrupacion !== "") {
-        //    mapSRC = "/static/maps/" + institutionId + "/" + selectedAgrupacion + ".html";
-            //$(".hm-map").attr(mapSRC);
-        //}
+        $.post("/obtainMeasures", {
+            start: selectedFrom === "" ? null : selectedFrom,
+            end: selectedEnd === "" ? null : selectedEnd,
+            institution: institutionId,
+            capitulo: selectedCapitulo === "" ? null : selectedCapitulo,
+            agrupacion: selectedAgrupacion === "" ? null : selectedAgrupacion,
+            cie10: selectedCie10 === "" ? null : selectedCie10
+        }, function(data){
+            var gyeData = data.gyeData;
+            map.remove();
+            initMap("% casos relativos", selectedCie10, gyeData);
+        })
     });
 
 });

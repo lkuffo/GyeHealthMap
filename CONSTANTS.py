@@ -1,5 +1,7 @@
 # coding=utf-8
 import os
+import pandas as pd
+from flask import current_app
 
 
 class CONSTANTS:
@@ -64,6 +66,10 @@ class CONSTANTS:
         for file in os.listdir(self.static + "/maps/" + institution_id):
             if ".html" in file:
                 availableCIE10.add(file.replace(".html", ""))
+        all_points = pd.read_csv(current_app.open_resource("neighboursMapping.csv"))
+        allcie10 = all_points["cie10"].values
+        for c in allcie10:
+            availableCIE10.add(c)
         return availableCIE10
 
     def findInstitution(self, institution_id):
