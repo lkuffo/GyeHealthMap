@@ -11,7 +11,7 @@ function initMap(measure, institutionName, gyeData){
 
     console.log(gyeData);
     var mapboxAccessToken = 'pk.eyJ1IjoibGt1ZmZvIiwiYSI6ImNqdHdmZjFuazBqc3A0M3J6bXV5a3Vyd2wifQ.vj3X2kc1lmQuEyyWbtbCDg';
-    map = L.map('map').setView([-2.1708, -79.9121], 12);
+    map = L.map('map', { zoomControl: false }).setView([-2.1708, -79.9121], 12);
 
     var measures = [];
     for (var i = 0; i < gyeData.features.length; i++){
@@ -70,6 +70,8 @@ function initMap(measure, institutionName, gyeData){
     info.addTo(map);
 
     legend.addTo(map);
+
+    new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
 
 }
 

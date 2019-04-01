@@ -9,93 +9,73 @@
 
         {% include "navbar.html" %}
 
-        <div class="hm-container">
-
-            <main role="main" class="inner cover">
-
-                <div class="hm-healthmap-container">
-                    <h1 class="hm-page-title"> {{ institution["name"] }}</h1>
-                    <div class="hm-healthmap-main-box">
-                        <div id="{{ institution["id"] }}" class="hm-healthmap-map">
-{#                            <iframe class="hm-map" src="">#}
-{##}
-{#                            </iframe>#}
-                            <div id="map" style="height: 100%; width: 100%;">
-
-                            </div>
-                        </div>
-                        <div class="hm-healthmap-map-info">
-                            <div class="hm-healthmap-selectors">
-                                <h3 class="hm-institution-title">Filtros</h3>
-                                <div class="hm-select-date-box">
-                                    <div>
-                                        <label class="hm-fields-label" for="from">Desde</label>
-                                        <input class="hm-select-date" type="text" id="from" name="from">
-                                    </div>
-                                    <div>
-                                        <label class="hm-fields-label" for="to">Hasta</label>
-                                        <input class="hm-select-date" type="text" id="to" name="to">
-                                    </div>
-                                </div>
-                                <div class="hm-filter-box">
-                                    <div class="ui-widget">
-                                        <label class="hm-fields-label" for="from">Capítulo</label>
-                                        <select id="combobox-capitulo">
-                                            <option value=""></option>
-                                            {%  for k, v in capitulos.items() %}
-                                                <option value="{{ k }}">{{ v["nombre"] }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="hm-filter-box">
-                                    <div class="ui-widget">
-                                        <label class="hm-fields-label" for="from">Agrupación</label>
-                                        <select id="combobox-agrupacion">
-                                            <option value=""></option>
-                                            {%  for k, v in agrupacion.items() %}
-                                                <option value="{{ k }}">{{ v["nombre"] }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="hm-filter-box">
-                                    <div class="ui-widget">
-                                        <label class="hm-fields-label" for="from">CIE10</label>
-                                        <select id="combobox-cie10">
-                                            <option value=""></option>
-                                            {%  for elem in cie10 %}
-                                                <option value="{{ elem }}">{{ elem }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <button id="hm-filter-action"
-                                        type="button"
-                                        class="hm-action-button btn btn-outline-primary btn-lg btn-block">
-                                    FILTRAR
-                                </button>
-                            </div>
-                            <div class="hm-healthmap-complement">
-                                <h3 class="hm-institution-title">Datos</h3>
-                            </div>
-                        </div>
-                    </div>
+        <div id="{{ institution["id"] }}" class="hm-healthmap-map">
+            <div class="hm-healthmap-map-info">
+                <div class="hm-healthmap-selectors">
+                    <h1 class="hm-page-title-u"> {{ institution["name"] }}</h1>
                     <div class="hm-healthmap-image" style="background-image: url('/static/images/{{ institution["id"] }}.png');">
 
                     </div>
                     <div class="hm-healthmap-back">
-                        <a href="/institutions" class="btn btn-primary btn-lg" role="button" aria-disabled="true">
+                        <a href="/institutions" class="hm-healthmap-back-a btn btn-primary btn-lg" role="button" aria-disabled="true">
                             <i class="material-icons">arrow_back</i>
-                            REGRESAR
+
                         </a>
                     </div>
+                    <div class="hm-select-date-box">
+                        <div>
+                            <label class="hm-fields-label" for="from">Desde</label>
+                            <input class="hm-select-date" type="text" id="from" name="from">
+                        </div>
+                        <div>
+                            <label class="hm-fields-label" for="to">Hasta</label>
+                            <input class="hm-select-date" type="text" id="to" name="to">
+                        </div>
+                    </div>
+                    <div class="hm-filter-box">
+                        <div class="ui-widget">
+                            <label class="hm-fields-label" for="from">Capítulo</label>
+                            <select id="combobox-capitulo">
+                                <option value=""></option>
+                                {%  for k, v in capitulos.items() %}
+                                    <option value="{{ k }}">{{ v["nombre"] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hm-filter-box">
+                        <div class="ui-widget">
+                            <label class="hm-fields-label" for="from">Agrupación</label>
+                            <select id="combobox-agrupacion">
+                                <option value=""></option>
+                                {%  for k, v in agrupacion.items() %}
+                                    <option value="{{ k }}">{{ v["nombre"] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hm-filter-box">
+                        <div class="ui-widget">
+                            <label class="hm-fields-label" for="from">CIE10</label>
+                            <select id="combobox-cie10">
+                                <option value=""></option>
+                                {%  for elem in cie10 %}
+                                    <option value="{{ elem }}">{{ elem }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <button id="hm-filter-action"
+                            type="button"
+                            class="hm-action-button btn btn-outline-primary btn-lg btn-block">
+                        FILTRAR
+                    </button>
                 </div>
-            </main>
+            </div>
+            <div id="map" style="height: 100%; width: 100%;">
 
+            </div>
         </div>
-
-
 
     </div>
 

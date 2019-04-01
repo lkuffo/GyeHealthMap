@@ -20,14 +20,16 @@
 
 .hm-healthmap-map-info{
     display: flex;
+    z-index: 2;
+    position: absolute;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-start;
 }
 
 .hm-healthmap-map{
-    width: 60%;
-    height: 650px;
+    width: 100%;
+    height: calc(100% - 68px);
 }
 
 .hm-map{
@@ -37,10 +39,10 @@
 }
 
 .hm-healthmap-map-info{
-    width: 38%;
+    margin-top: 16px;
+    margin-left: 16px;
 }
 
-.hm-healthmap-map,
 .hm-healthmap-selectors,
 .hm-healthmap-complement{
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -57,10 +59,11 @@
 
 .hm-healthmap-image{
     position: absolute;
-    height: 125px;
+    height: 50px;
     align-self: center;
-    width: 125px;
-    top: -80px;
+    width: 50px;
+    top: -10px;
+    right: -22px;
     border-radius: 50%;
     object-fit: cover;
     background-repeat:   no-repeat;
@@ -68,20 +71,34 @@
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
-    margin-right: 16px;
-    border: 3px solid #b5d6df;
+    border: 1px solid #b5d6df;
+}
+
+.btn.btn-lg{
+    font-size: 12px !important;
 }
 
 .hm-healthmap-back{
     display: flex;
     position: absolute;
-    top: -80px;
+    top: 5px;
     left: 0;
 }
 
 .hm-healthmap-back a{
     display: flex;
     flex-direction: column;
+}
+
+#map{
+    z-index: 1;
+    height: calc(100% - 2px) !important;;
+}
+
+.hm-healthmap-back-a{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
 }
 
 .hm-select-date{

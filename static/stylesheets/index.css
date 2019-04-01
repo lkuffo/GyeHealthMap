@@ -47,14 +47,19 @@ body::after{
     margin-top: 16px;
 }
 
+.hm-page-title-u{
+    font-weight: 700;
+    font-size: 16px !important;
+}
 
 .cover-container {
   width: 100%;
 }
 
 .masthead {
+    z-index: 20;
   padding: 16px 32px 16px 32px;
-  margin-bottom: 32px;
+  margin-bottom: 0px;
   color: #fff;
   background-color: #333;
   border-bottom: 2px solid #111;
@@ -258,6 +263,7 @@ body::after{
 .hm-institutions-title{
     text-transform: uppercase;
     margin-bottom: 0;
+    margin-top: 32px;
     font-size: 32px;
     font-weight: 700;
 }
