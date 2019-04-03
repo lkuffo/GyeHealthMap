@@ -211,8 +211,9 @@ $(document).ready(function(){
         }, function(data){
             var gyeData = data.gyeData;
             var mapTitle = data.mapTitle;
+            var instantMapType = (selectedCie10 === "" && selectedAgrupacion === "" && selectedCapitulo === "") ? "absolute" : 'normalized'
             map.remove();
-            initMap("% casos relativos", mapTitle, gyeData, "normalized");
+            initMap("% casos relativos", mapTitle, gyeData, instantMapType);
             $(".hm-loader-dimmer").hide();
         })
     });
