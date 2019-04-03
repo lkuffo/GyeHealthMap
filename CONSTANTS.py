@@ -39,6 +39,7 @@ class CONSTANTS:
             capitulos[info[0]] = {
                 "id": info[0],
                 "nombre": info[1] + ": " + info[-1],
+                "onlyNombre": info[-1],
                 "ini": info[2],
                 "fin": info[3]
             }
@@ -46,6 +47,7 @@ class CONSTANTS:
 
     def getAgrupaciones(self):
         agrupaciones = {}
+        availableAgrupaciones = set()
         f = open(self.static + "/cie10/cie_agrupaciones.csv", "r")
         f.readline()
         for line in f:
@@ -53,8 +55,11 @@ class CONSTANTS:
             agrupaciones[info[2]] = {
                 "id": info[2],
                 "nombre": info[2] + ": " + info[1],
-                "ini": info[-2],
-                "fin": info[-1]
+                "ini": info[-2][0:],
+                "fin": info[-1][0:],
+                "onlyNombre": info[1],
+                "letra": info[-2][0],
+                "intervalo": info[-2] + "|" + info[-1]
             }
         return agrupaciones
 

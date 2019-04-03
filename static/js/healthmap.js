@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     var institutionId = $(".hm-healthmap-map").attr("id");
-
+    $(".hm-loader-dimmer").show();
     $.post("/obtainMeasures", {
         start: null,
         end: null,
@@ -11,7 +11,8 @@ $(document).ready(function(){
         cie10: "all"
     }, function(data){
         var gyeData = data.gyeData;
-        initMap(" Casos Absolutos", "Casos Totales", gyeData);
+        initMap(" Casos Absolutos", "Pacientes Totales", gyeData, "absolute");
+        $(".hm-loader-dimmer").hide();
     });
 
     // START DATE PICKER
@@ -198,6 +199,7 @@ $(document).ready(function(){
         var selectedCapitulo = comboboxCapitulo.next().children(":first").val();
         var selectedFrom = $("#from").val();
         var selectedEnd = $("#to").val();
+        $(".hm-loader-dimmer").show();
 
         $.post("/obtainMeasures", {
             start: selectedFrom === "" ? null : selectedFrom,
@@ -208,8 +210,10 @@ $(document).ready(function(){
             cie10: selectedCie10 === "" ? null : selectedCie10
         }, function(data){
             var gyeData = data.gyeData;
+            var mapTitle = data.mapTitle;
             map.remove();
-            initMap("% casos relativos", selectedCie10, gyeData);
+            initMap("% casos relativos", mapTitle, gyeData, "normalized");
+            $(".hm-loader-dimmer").hide();
         })
     });
 

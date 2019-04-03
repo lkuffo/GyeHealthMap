@@ -43,22 +43,22 @@
 3,"Defectos de la coagulación, púrpura y otras afecciones hemorrágicas",D65 - D69,D65,D69
 3,Otras enfermedades de la sangre y de los órganos hematopoyeticos,D70-D77,D70,D77
 3,Ciertos trastornos que afectan el mecanismo de la inmunidad,D80-D89,D80,D89
-4,Enfermedades del tiroides,(E00-E07),E00,E07
-4,Diabetes mellitus,(E10-E16),E10,E16
-4,Otras enfermedades de las glándulas endocrinas,(E20-E35),E20,E35
-4,Enfermedades nutricionales,(E40-E64),E40,E64
-4,Obesidad y otros tipos de hiperalimentación,(E65-E68),E65,E68
-4,Trastorno del metabolismo,(E70-E90),E70,E90
-5,Desórdenes psicóticos y del comportamiento,(F00-F09),F00,F09
-5,Trastornos mentales debidos al consumo de alcohol y sicótropos,(F10-F19),F10,F19
-5,Esquizofrenia y trastornos esquizoides,(F20-F29),F20,F29
-5,Desórdenes afectivos,(F30-F39),F30,F39
-5,Trastornos fóbicos y neuróticos,(F40-F48),F40,F48
-5,Trastornos del comportamiento con factores físicos u orgánicos,(F50-F59),F50,F59
-5,Trastornos de la personalidad,(F60-F69),F60,F69
-5,Desórdenes que afectan a la inteligencia,(F70-F79),F70,F79
-5,Trastornos del desarrollo,(F80-89),F80,F89
-5,Trastornos emocionales y del comportamiento de la infancia y la adolescencia,(F90-F98),F90,F98
+4,Enfermedades del tiroides,E00-E07,E00,E07
+4,Diabetes mellitus,E10-E16,E10,E16
+4,Otras enfermedades de las glándulas endocrinas,E20-E35,E20,E35
+4,Enfermedades nutricionales,E40-E64,E40,E64
+4,Obesidad y otros tipos de hiperalimentación,E65-E68,E65,E68
+4,Trastorno del metabolismo,E70-E90,E70,E90
+5,Desórdenes psicóticos y del comportamiento,F00-F09,F00,F09
+5,Trastornos mentales debidos al consumo de alcohol y sicótropos,F10-F19,F10,F19
+5,Esquizofrenia y trastornos esquizoides,F20-F29,F20,F29
+5,Desórdenes afectivos,F30-F39,F30,F39
+5,Trastornos fóbicos y neuróticos,F40-F48,F40,F48
+5,Trastornos del comportamiento con factores físicos u orgánicos,F50-F59,F50,F59
+5,Trastornos de la personalidad,F60-F69,F60,F69
+5,Desórdenes que afectan a la inteligencia,F70-F79,F70,F79
+5,Trastornos del desarrollo,F80-89,F80,F89
+5,Trastornos emocionales y del comportamiento de la infancia y la adolescencia,F90-F98,F90,F98
 5,Trastorno mental no especificado,F99,F99,F99
 6,Enfermedades agudas del sistema nervioso central,G00-G09,G00,G09
 6,Enfermedades atróficas,G10-G14,G10,G14
@@ -132,7 +132,7 @@
 13,Osteopatías y condropatías,M80-M94,M80,M94
 13,Otras enfermedades del sistema músculoesquelético y de las articulaciones,M95-M99,M95,M99
 14,Enfermedades glomerulares,N00-N08,N00,N08
-14,Enfermedades túbulointersticiales,N10-N16),N10,N16
+14,Enfermedades túbulointersticiales,N10-N16,N10,N16
 14,Insuficiencia renal,N17-N19,N17,N19
 14,Urolitiasis,N20-N23,N20,N23
 14,Otras enfermedades del riñón y de los uréteres,N25-N29,N25,N29
@@ -142,9 +142,9 @@
 14,Enfermedades agudas los órganos reproductores femenino,N70-N77,N70,N77
 14,Enfermedades no agudas de los órganos reproductores femeninos,N80-N98,N80,N98
 14,Otros trastornos del sistema genitourinario,N99,N99,N99
-15,Embarazo terminado en aborto,(000-008),O00,O008
-15,"Edema, proteinuria y trastornos hipertensivos en el embarazo, el parto y el puerperio",(010-016),O10,O16
-15,Otros trastornos maternos relacionados principalmente con el embarazo,(020-029),O20,O29
+15,Embarazo terminado en aborto,000-008,O00,O008
+15,"Edema, proteinuria y trastornos hipertensivos en el embarazo, el parto y el puerperio",010-016,O10,O16
+15,Otros trastornos maternos relacionados principalmente con el embarazo,020-029,O20,O29
 15,Atención materna relacionada con el feto y la cavidad amniótica y con posibles problemas del parto,030-048,O30,O48
 15,Complicaciones del embarazo y del parto,O60-O75,O60,O75
 15,Parto,O80-O84,O80,O84
@@ -160,17 +160,17 @@
 16,Enfermedades del sistema digestivo del feto y del recién nacido,P75-P78,P75,P78
 16,Enfermedades que afectan a la piel y a la regulación de la temperatura del recién nacido,P80-P83,P80,P83
 16,Otros desórdenes del período perinatal,P90-P96,P90,P96
-17,Enfermedades congénitas del sistema nervioso,(Q00-Q07),Q00,Q07
-17,"Enfermedades congenitas de la ojos, orejas, cara y cuello",(Q10-Q18),Q10,Q18
-17,Malformaciones congénitas del sistema circulatorio,(Q20-Q28),Q20,Q28
-17,Malformaciones del sistema respiratorio,(Q30-Q34),Q30,Q34
-17,"Malformaciones de los labios, boca y paladar",(Q35-Q37),Q35,Q37
-17,Otras malformaciones del aparato digestivo,(Q38-Q45),Q38,Q45
-17,Malformaciones de los órganos genitales,(Q50-Q56),Q50,Q56
-17,Malformaciones del aparato urinario,(Q60-Q64),Q60,Q64
-17,Malformaciones del sistema músculoesquelético,(Q65-Q79),Q65,Q79
-17,Otras dismorfias congénitas,(Q80-Q89),Q80,Q89
-17,Anormalidades cromosómicas no clasificadas en otras partes,(Q90-Q99,Q90,Q99
+17,Enfermedades congénitas del sistema nervioso,Q00-Q07,Q00,Q07
+17,"Enfermedades congenitas de la ojos, orejas, cara y cuello",Q10-Q18,Q10,Q18
+17,Malformaciones congénitas del sistema circulatorio,Q20-Q28,Q20,Q28
+17,Malformaciones del sistema respiratorio,Q30-Q34,Q30,Q34
+17,"Malformaciones de los labios, boca y paladar",Q35-Q37,Q35,Q37
+17,Otras malformaciones del aparato digestivo,Q38-Q45,Q38,Q45
+17,Malformaciones de los órganos genitales,Q50-Q56,Q50,Q56
+17,Malformaciones del aparato urinario,Q60-Q64,Q60,Q64
+17,Malformaciones del sistema músculoesquelético,Q65-Q79,Q65,Q79
+17,Otras dismorfias congénitas,Q80-Q89,Q80,Q89
+17,Anormalidades cromosómicas no clasificadas en otras partes,Q90-Q99,Q90,Q99
 18,Síntomas que reflejan una enfermedad cardiovascular o respiratoria,R00-R09,R00,R09
 18,Síntomas de enfermedades digestivas y de desórdenes abdominales,R10-R19,R10,R19
 18,Síntomas de enfermedades de la piel y del tejido subcutáneo,R20-R23,R20,R23

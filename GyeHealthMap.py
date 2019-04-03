@@ -50,14 +50,33 @@ def obtainMeasures():
     capitulo = request.form.get("capitulo")
     agrupacion = request.form.get("agrupacion")
     cie10 = request.form.get("cie10")
+
+    cleanedCie10 = None
+    cleanedAgrupacion = None
+    cleanedCapitulo = None
     if cie10 != "" and cie10:
-        cie10 = cie10.split("-")[0]
-    MG = MapGenerator(app, institution, capitulo, agrupacion, cie10, startDate, endDate)
-    geojson = MG.generateMap()
+        cleanedCie10 = cie10.split("-")[0]
+    if agrupacion != "" and agrupacion:
+        cleanedAgrupacion = agrupacion.split(":")[0]
+    if capitulo != "" and capitulo:
+        cleanedCapitulo = capitulo.split(":")[0]
+
+    MG = MapGenerator(app, institution, cleanedCapitulo, cleanedAgrupacion, cleanedCie10, startDate, endDate)
+    geojson, filterUsed = MG.generateMap()
+
+    mapTitle = filterUsed
+    if filterUsed == "cie10":
+        mapTitle = "Pacientes de: " + cie10
+    elif filterUsed == "capitulo":
+        mapTitle = "Pacientes de: " + capitulo
+    elif filterUsed == "agrupacion":
+        mapTitle = "Pacientes de: " + agrupacion
+
     return jsonify(
-        gyeData = geojson
+        gyeData = geojson,
+        mapTitle = mapTitle
     )
 
 
 if __name__ == '__main__':
-    app.run(debug=False, threaded=True)
+    app.run(debug=True, threaded=True)

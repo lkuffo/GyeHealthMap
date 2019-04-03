@@ -4,7 +4,16 @@
     {% include "header.html" %}
 
     <body class="hm-index-body text-center">
-
+    <div class="hm-loader-dimmer">
+        <div class="hm-loader">
+            <div class="load-3">
+                <p>Cargando el mapa. Por favor, espera unos segundos.</p>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
     <div class="cover-container d-flex h-100 mx-auto flex-column">
 
         {% include "navbar.html" %}
@@ -38,7 +47,7 @@
                             <select id="combobox-capitulo">
                                 <option value=""></option>
                                 {%  for k, v in capitulos.items() %}
-                                    <option value="{{ k }}">{{ v["nombre"] }}</option>
+                                    <option value="{{ v["nombre"] }}">{{ v["nombre"] }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -49,7 +58,7 @@
                             <select id="combobox-agrupacion">
                                 <option value=""></option>
                                 {%  for k, v in agrupacion.items() %}
-                                    <option value="{{ k }}">{{ v["nombre"] }}</option>
+                                    <option value="{{ v["nombre"] }}">{{ v["nombre"] }}</option>
                                 {% endfor %}
                             </select>
                         </div>

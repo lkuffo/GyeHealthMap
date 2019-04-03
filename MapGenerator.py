@@ -29,7 +29,9 @@ class MapGenerator():
         self.file = file_location
         self.output = file_output
 
-    def normalizeCie10(self, shapeNumbers, shapeNames):
+    def normalizeCie10(self, shapeNumbers, shapeNames, shapeNormalized):
+        for i in range(len(shapeNormalized)):
+            shapeNormalized[i] = 0
         casosTotales = {}
         f = current_app.open_resource("casos_totales.csv")
         for line in f:
@@ -41,13 +43,37 @@ class MapGenerator():
                 continue
             value = float(shapeNumbers[i]) / casosTotales[shapeNames[i]] * 100
             value = float("{0:.2f}".format(value))
-            shapeNumbers[i] = value
+            shapeNormalized[i] = value
 
-    def calculateOcurrences(self, polygons, shapeNumbers, shapeNames, cie10=None):
+    def findCapitulo(self, cie10, letraStart, letraEnd, start, end):
+        cie10Letra, cie10Numero = cie10[0], int(cie10[1:3]) #truncate CIE10
+        if (cie10Letra.upper() >= letraStart.upper() and cie10Letra.upper() <= letraEnd.upper()) \
+            and (cie10Numero >= start and cie10Numero <= end):
+            return True
+        return False
+
+    def findAgrupacion(self, cie10, letra, start, end):
+        cie10Letra, cie10Numero = cie10[0], int(cie10[1:3]) #truncate CIE10
+        if letra.upper() == cie10Letra.upper() and (cie10Numero >= start and cie10Numero <= end):
+            return True
+        return False
+
+    def calculateOcurrences(self, polygons, shapeNumbers, shapeNames, cie10=None, capitulo=None, agrupacion=None):
         all_points = pd.read_csv(current_app.open_resource("neighboursMapping.csv"))
         all_points.dropna(inplace=True)
         if cie10:
             all_points = all_points[all_points["cie10"] == cie10]
+        if agrupacion:
+            start, end = agrupacion.upper().split("-")
+            letra, numStart = start[0], int(start[1:])
+            numEnd = int(end[1:])
+            all_points = all_points[all_points.apply(lambda x: self.findAgrupacion(x["cie10"], letra, numStart, numEnd), axis=1)]
+        if capitulo:
+            start, end = capitulo.upper().split("-")
+            letraStart, numStart = start[0], int(start[1:])
+            letraEnd, numEnd = end[0], int(end[1:])
+            all_points = all_points[all_points.apply(lambda x: self.findCapitulo(x["cie10"], letraStart, letraEnd, numStart, numEnd), axis=1)]
+
         locations = all_points["shapeName"].values.tolist()
         strCoordLocations =  list(filter(lambda x: "|" in x, locations))
         coordLocations = []
@@ -70,7 +96,7 @@ class MapGenerator():
     def generateMap(self):
         with current_app.open_resource(self.file) as f:
             shapes = json.load(f)
-
+        usedFilter = None
         shapesFeatures = shapes['features']
 
         shapeNames = [feat['properties']['name'].upper() for feat in shapesFeatures]
@@ -79,12 +105,24 @@ class MapGenerator():
         district_xy = [[xy for xy in feat["geometry"]["coordinates"][0]] for feat in shapesFeatures]
         polygons = [Polygon(xy) for xy in district_xy]
         shapeNumbers = [0] * len(shapeNames)
+        shapeNormalized = [100] * len(shapeNames)
 
-        if self.cie10 == "all" or self.cie10 == None:
-            self.calculateOcurrences(polygons, shapeNumbers, shapeNames)
+        if self.capitulo != None:
+            self.calculateOcurrences(polygons, shapeNumbers, shapeNames, capitulo=self.capitulo)
+            self.normalizeCie10(shapeNumbers, shapeNames,shapeNormalized)
+            usedFilter = "capitulo"
+        elif self.agrupacion != None:
+            self.calculateOcurrences(polygons, shapeNumbers, shapeNames, agrupacion=self.agrupacion)
+            self.normalizeCie10(shapeNumbers, shapeNames,shapeNormalized)
+            usedFilter = "agrupacion"
         else:
-            self.calculateOcurrences(polygons, shapeNumbers, shapeNames, cie10=self.cie10)
-            self.normalizeCie10(shapeNumbers, shapeNames)
+            if self.cie10 == "all" or self.cie10 == None:
+                self.calculateOcurrences(polygons, shapeNumbers, shapeNames)
+                usedFilter = "Pacientes Totales"
+            else:
+                self.calculateOcurrences(polygons, shapeNumbers, shapeNames, cie10=self.cie10)
+                self.normalizeCie10(shapeNumbers, shapeNames,shapeNormalized)
+                usedFilter = "cie10"
 
         sectores = {}
 
@@ -97,12 +135,13 @@ class MapGenerator():
         for feature in shapes["features"]:
             index = shapeNames.index(feature["properties"]["name"].upper())
             feature["properties"]["density"] = shapeNumbers[index]
+            feature["properties"]["normalized"] = shapeNormalized[index]
 
         # with current_app.open_resource(self.output, 'w') as outfile:
         # with open(os.path.join(self.app.root_path, self.output), 'w') as outfile:
         #     json.dump(shapes, outfile)
 
-        return shapes
+        return shapes, usedFilter
         # sorted_x = sorted(sectores.items(), key=operator.itemgetter(1))
         # for k in sorted_x:
         #     print k

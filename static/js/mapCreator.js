@@ -2,20 +2,25 @@ var geojson;
 var map;
 var info;
 var grades;
+var graphType;
 
 // $(document).ready(function(){
-//     // initMap(" Casos Absolutos");
+//     // initMap(" pacientes Absolutos");
 // });
 
-function initMap(measure, institutionName, gyeData){
-
+function initMap(measure, institutionName, gyeData, type){
+    graphType = type;
     console.log(gyeData);
     var mapboxAccessToken = 'pk.eyJ1IjoibGt1ZmZvIiwiYSI6ImNqdHdmZjFuazBqc3A0M3J6bXV5a3Vyd2wifQ.vj3X2kc1lmQuEyyWbtbCDg';
     map = L.map('map', { zoomControl: false }).setView([-2.1708, -79.9121], 12);
 
     var measures = [];
     for (var i = 0; i < gyeData.features.length; i++){
-        loop_measure = gyeData.features[i].properties.density;
+        if (type === "absolute"){
+            loop_measure = gyeData.features[i].properties.density;
+        } else {
+            loop_measure = gyeData.features[i].properties.normalized;
+        }
         measures.push(loop_measure)
     }
 
@@ -37,8 +42,9 @@ function initMap(measure, institutionName, gyeData){
 
     info.update = function (props) {
         this._div.innerHTML = '<h4>' + institutionName + '</h4>' +  (props ?
-            '<b>' + props.name + '</b><br />' + props.density + measure
-            : 'Acerca el mouse al sector');
+            '<b>' + props.name + '</b><br />' + props.density + " pacientes" + '<br/>' +
+            props.normalized + "% de pacientes (relativo a todos los pacientes del sector)"
+            : 'Acerca el mouse al sector para ver más información');
     };
 
     var legend = L.control({position: 'bottomright'});
@@ -97,7 +103,7 @@ function getColor(d) {
 
 function style(feature) {
     return {
-        fillColor: getColor(feature.properties.density),
+        fillColor: graphType === "absolute" ? getColor(feature.properties.density): getColor(feature.properties.normalized),
         weight: 2,
         opacity: 1,
         color: 'white',
