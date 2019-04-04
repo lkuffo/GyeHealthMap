@@ -4,6 +4,50 @@ var info;
 var grades;
 var graphType;
 
+var ZanjaIcon = L.Icon.extend({
+    options: {
+        iconUrl: '/static/images/markers/ditch.png',
+        iconSize:     [16, 16],
+        iconAnchor:   [16, 16],
+        popupAnchor:  [-3, -20]
+    }
+});
+
+var ConstructionIcon = L.Icon.extend({
+    options: {
+        iconUrl: '/static/images/markers/construction.png',
+        iconSize:     [20, 20],
+        iconAnchor:   [20, 20],
+        popupAnchor:  [-3, -20]
+    }
+});
+
+var TrashIcon = L.Icon.extend({
+    options: {
+        iconUrl: '/static/images/markers/trash.png',
+        iconSize:     [30, 30],
+        iconAnchor:   [30, 30],
+        popupAnchor:  [-3, -20]
+    }
+});
+
+var ParkIcon = L.Icon.extend({
+    options: {
+        iconUrl: '/static/images/markers/park.png',
+        iconSize:     [20, 20],
+        iconAnchor:   [20, 20],
+        popupAnchor:  [-3, -20]
+    }
+});
+
+var WaterIcon = L.Icon.extend({
+    options: {
+        iconUrl: '/static/images/markers/water.png',
+        iconSize:     [20, 20],
+        iconAnchor:   [20, 20],
+        popupAnchor:  [-3, -76]
+    }
+});
 // $(document).ready(function(){
 //     // initMap(" pacientes Absolutos");
 // });
@@ -52,14 +96,19 @@ function initMap(measure, institutionName, gyeData, type){
     legend.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend'),
-            labels = [];
-
-        // loop through our density intervals and generate a label with a colored square for each interval
+            labels = [];// loop through our density intervals and generate a label with a colored square for each interval
         for (var i = 1; i < grades.length-1; i++) {
             div.innerHTML +=
                 '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
                 grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '<br>');
         }
+        div.innerHTML += '<br>';
+        div.innerHTML += '<i style="background-size: contain; background-image: url('+"'/static/images/markers/ditch.png'"+');"></i> Zanja </i> <br>';
+        div.innerHTML += '<i style="background-size: contain; background-image: url('+"'/static/images/markers/water.png'"+');"></i> Cuerpo de Agua </i> <br>';
+        div.innerHTML += '<i style="background-size: contain; background-image: url('+"'/static/images/markers/park.png'"+');"></i> Area Verde </i> <br>';
+        div.innerHTML += '<i style="background-size: contain; background-image: url('+"'/static/images/markers/trash.png'"+');"></i> Vertedero </i> <br>';
+        div.innerHTML += '<i style="background-size: contain; background-image: url('+"'/static/images/markers/construction.png'"+');"></i> Construcciones </i>';
+
 
         return div;
     };
@@ -78,6 +127,15 @@ function initMap(measure, institutionName, gyeData, type){
     legend.addTo(map);
 
     new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
+
+    L.marker([-2.143705, -79.904008], {icon: new ZanjaIcon()}).addTo(map).bindPopup("Zanja");
+    L.marker([-2.117535, -79.964695], {icon: new TrashIcon()}).addTo(map).bindPopup("Vertedero");
+    L.marker([-2.104010, -79.898905], {icon: new ParkIcon()}).addTo(map).bindPopup("Area Verde");
+    L.marker([-2.097619, -79.898219], {icon: new ParkIcon()}).addTo(map).bindPopup("Area Verde");
+    L.marker([-2.190541, -79.887533], {icon: new ParkIcon()}).addTo(map).bindPopup("Area Verde");
+    L.marker([-2.064410, -79.915380], {icon: new WaterIcon()}).addTo(map).bindPopup("Cuerpo de Agua");
+    L.marker([-2.142410, -79.949090], {icon: new WaterIcon()}).addTo(map).bindPopup("Cuerpo de Agua");
+    L.marker([-2.1063906,-79.8910897], {icon: new ConstructionIcon()}).addTo(map).bindPopup("Construcciones");
 
 }
 

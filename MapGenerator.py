@@ -16,6 +16,7 @@ class MapGenerator():
         cie10="all",
         startDate=None,
         endDate=None,
+        edad=None,
         file_location="static/gye/GYEv1.geojson",
         file_output="static/gye/data.geojson"
     ):
@@ -26,6 +27,7 @@ class MapGenerator():
         self.cie10 = cie10
         self.start = startDate
         self.end = endDate
+        self.edad = edad
         self.file = file_location
         self.output = file_output
 
@@ -58,7 +60,7 @@ class MapGenerator():
             return True
         return False
 
-    def calculateOcurrences(self, polygons, shapeNumbers, shapeNames, cie10=None, capitulo=None, agrupacion=None):
+    def calculateOcurrences(self, polygons, shapeNumbers, shapeNames, cie10=None, capitulo=None, agrupacion=None, edad=None):
         all_points = pd.read_csv(current_app.open_resource("neighboursMapping.csv"))
         all_points.dropna(inplace=True)
         if cie10:
@@ -73,7 +75,9 @@ class MapGenerator():
             letraStart, numStart = start[0], int(start[1:])
             letraEnd, numEnd = end[0], int(end[1:])
             all_points = all_points[all_points.apply(lambda x: self.findCapitulo(x["cie10"], letraStart, letraEnd, numStart, numEnd), axis=1)]
-
+        if edad and edad != "":
+            edadStart, edadEnd = edad.split("-")
+            all_points = all_points[(all_points["edad"] > int(edadStart)) & (all_points["edad"] < int(edadEnd))]
         locations = all_points["shapeName"].values.tolist()
         strCoordLocations =  list(filter(lambda x: "|" in x, locations))
         coordLocations = []
@@ -108,19 +112,19 @@ class MapGenerator():
         shapeNormalized = [100] * len(shapeNames)
 
         if self.capitulo != None:
-            self.calculateOcurrences(polygons, shapeNumbers, shapeNames, capitulo=self.capitulo)
+            self.calculateOcurrences(polygons, shapeNumbers, shapeNames, capitulo=self.capitulo, edad=self.edad)
             self.normalizeCie10(shapeNumbers, shapeNames,shapeNormalized)
             usedFilter = "capitulo"
         elif self.agrupacion != None:
-            self.calculateOcurrences(polygons, shapeNumbers, shapeNames, agrupacion=self.agrupacion)
+            self.calculateOcurrences(polygons, shapeNumbers, shapeNames, agrupacion=self.agrupacion, edad=self.edad)
             self.normalizeCie10(shapeNumbers, shapeNames,shapeNormalized)
             usedFilter = "agrupacion"
         else:
             if self.cie10 == "all" or self.cie10 == None:
-                self.calculateOcurrences(polygons, shapeNumbers, shapeNames)
+                self.calculateOcurrences(polygons, shapeNumbers, shapeNames, edad=self.edad)
                 usedFilter = "Pacientes Totales"
             else:
-                self.calculateOcurrences(polygons, shapeNumbers, shapeNames, cie10=self.cie10)
+                self.calculateOcurrences(polygons, shapeNumbers, shapeNames, cie10=self.cie10, edad=self.edad)
                 self.normalizeCie10(shapeNumbers, shapeNames,shapeNormalized)
                 usedFilter = "cie10"
 

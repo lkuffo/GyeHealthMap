@@ -47,6 +47,7 @@ def obtainMeasures():
     startDate = request.form.get("start")
     endDate = request.form.get("end")
     institution = request.form.get("institution")
+    edad = request.form.get("edad")
     capitulo = request.form.get("capitulo")
     agrupacion = request.form.get("agrupacion")
     cie10 = request.form.get("cie10")
@@ -61,7 +62,7 @@ def obtainMeasures():
     if capitulo != "" and capitulo:
         cleanedCapitulo = capitulo.split(":")[0]
 
-    MG = MapGenerator(app, institution, cleanedCapitulo, cleanedAgrupacion, cleanedCie10, startDate, endDate)
+    MG = MapGenerator(app, institution, cleanedCapitulo, cleanedAgrupacion, cleanedCie10, startDate, endDate, edad)
     geojson, filterUsed = MG.generateMap()
 
     mapTitle = filterUsed

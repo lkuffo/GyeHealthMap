@@ -181,11 +181,13 @@ $(document).ready(function(){
       }
     });
 
+    var comboboxEdad = $("#combobox-edad");
     var comboboxCie10 = $("#combobox-cie10");
     var comboboxCapitulo = $("#combobox-capitulo");
     var comboboxAgrupacion = $( "#combobox-agrupacion" );
     var filterActionButton = $("#hm-filter-action");
 
+    comboboxEdad.combobox();
     comboboxCapitulo.combobox();
     comboboxAgrupacion.combobox();
     comboboxCie10.combobox();
@@ -197,6 +199,7 @@ $(document).ready(function(){
         var selectedCie10 = comboboxCie10.next().children(":first").val();
         var selectedAgrupacion = comboboxAgrupacion.next().children(":first").val();
         var selectedCapitulo = comboboxCapitulo.next().children(":first").val();
+        var selectedEdad = comboboxEdad.next().children(":first").val();
         var selectedFrom = $("#from").val();
         var selectedEnd = $("#to").val();
         $(".hm-loader-dimmer").show();
@@ -205,6 +208,7 @@ $(document).ready(function(){
             start: selectedFrom === "" ? null : selectedFrom,
             end: selectedEnd === "" ? null : selectedEnd,
             institution: institutionId,
+            edad: selectedEdad === "" ? null : selectedEdad,
             capitulo: selectedCapitulo === "" ? null : selectedCapitulo,
             agrupacion: selectedAgrupacion === "" ? null : selectedAgrupacion,
             cie10: selectedCie10 === "" ? null : selectedCie10
