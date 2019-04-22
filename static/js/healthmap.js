@@ -22,6 +22,7 @@ $(document).ready(function(){
           defaultDate: "+1w",
           changeMonth: true,
           changeYear: true,
+          dateFormat: 'mm/dd/yy',
           numberOfMonths: 1
         })
         .on( "change", function() {
@@ -31,6 +32,7 @@ $(document).ready(function(){
         defaultDate: "+1w",
         changeMonth: true,
         changeYear: true,
+        dateFormat: 'mm/dd/yy',
         numberOfMonths: 1
       })
       .on( "change", function() {
@@ -215,7 +217,7 @@ $(document).ready(function(){
         }, function(data){
             var gyeData = data.gyeData;
             var mapTitle = data.mapTitle;
-            var instantMapType = (selectedCie10 === "" && selectedAgrupacion === "" && selectedCapitulo === "") ? "absolute" : 'normalized'
+            var instantMapType = (selectedCie10 === "" && selectedAgrupacion === "" && selectedCapitulo === "") ? "absolute" : 'normalized';
             map.remove();
             initMap("% casos relativos", mapTitle, gyeData, instantMapType);
             $(".hm-loader-dimmer").hide();

@@ -2,8 +2,10 @@ import pandas as pd
 from shapely.geometry import Polygon, Point
 from shapely.prepared import prep
 from flask import current_app
+from datetime import datetime
 import json
 import os
+import re
 
 class MapGenerator():
 
@@ -63,21 +65,36 @@ class MapGenerator():
     def calculateOcurrences(self, polygons, shapeNumbers, shapeNames, cie10=None, capitulo=None, agrupacion=None, edad=None):
         all_points = pd.read_csv(current_app.open_resource("neighboursMapping.csv"))
         all_points.dropna(inplace=True)
+        all_points["edad"] = pd.to_numeric(all_points["edad"])
         if cie10:
             all_points = all_points[all_points["cie10"] == cie10]
+
         if agrupacion:
             start, end = agrupacion.upper().split("-")
             letra, numStart = start[0], int(start[1:])
             numEnd = int(end[1:])
             all_points = all_points[all_points.apply(lambda x: self.findAgrupacion(x["cie10"], letra, numStart, numEnd), axis=1)]
+
         if capitulo:
             start, end = capitulo.upper().split("-")
             letraStart, numStart = start[0], int(start[1:])
             letraEnd, numEnd = end[0], int(end[1:])
             all_points = all_points[all_points.apply(lambda x: self.findCapitulo(x["cie10"], letraStart, letraEnd, numStart, numEnd), axis=1)]
+
         if edad and edad != "":
+            print edad
             edadStart, edadEnd = edad.split("-")
-            all_points = all_points[(all_points["edad"] > int(edadStart)) & (all_points["edad"] < int(edadEnd))]
+            edadStart = re.sub('[^0-9]','', edadStart)
+            edadEnd = re.sub('[^0-9]','', edadEnd)
+            all_points = all_points[(all_points["edad"] >= int(edadStart)) & (all_points["edad"] <= int(edadEnd))]
+
+        all_points['fecha'] = all_points['fecha'].apply(lambda x: datetime.strptime(x[0:8], '%m/%d/%y'))
+        print self.start
+        print self.end
+        if self.start and self.start != "":
+            all_points = all_points[all_points['fecha'] >= self.start]
+        if self.end and self.end != "":
+            all_points = all_points[all_points['fecha'] <= self.end]
         locations = all_points["shapeName"].values.tolist()
         strCoordLocations =  list(filter(lambda x: "|" in x, locations))
         coordLocations = []
@@ -86,13 +103,15 @@ class MapGenerator():
             point = Point(float(lat), float(lon))
             coordLocations.append(point)
         mappedLocations = list(filter(lambda x: "|" not in x, locations))
-
         # print set(mappedLocations).difference(set(shapeNames))
         # print len(set(mappedLocations).difference(set(shapeNames)))
 
         for i, polygon in enumerate(polygons):
             shapeName = shapeNames[i].upper()
             poly = prep(polygon)
+            for elem in coordLocations:
+                if poly.contains(elem):
+                    shapeNumbers[i] += 1
             shapeNumbers[i] += int(len(list(filter(poly.contains, coordLocations))))
             shapeNumbers[i] += int(len(list(filter(lambda x: x == shapeName, mappedLocations))))
 
@@ -110,7 +129,6 @@ class MapGenerator():
         polygons = [Polygon(xy) for xy in district_xy]
         shapeNumbers = [0] * len(shapeNames)
         shapeNormalized = [100] * len(shapeNames)
-
         if self.capitulo != None:
             self.calculateOcurrences(polygons, shapeNumbers, shapeNames, capitulo=self.capitulo, edad=self.edad)
             self.normalizeCie10(shapeNumbers, shapeNames,shapeNormalized)
@@ -130,8 +148,6 @@ class MapGenerator():
 
         sectores = {}
 
-
-
         for i in range (0, len(shapeNumbers)):
             sectores[shapeNames[i]] = shapeNumbers[i]
             # print shapeNames[i], ",",shapeNumbers[i]
@@ -144,7 +160,7 @@ class MapGenerator():
         # with current_app.open_resource(self.output, 'w') as outfile:
         # with open(os.path.join(self.app.root_path, self.output), 'w') as outfile:
         #     json.dump(shapes, outfile)
-
+        print "FINISHED!"
         return shapes, usedFilter
         # sorted_x = sorted(sectores.items(), key=operator.itemgetter(1))
         # for k in sorted_x:

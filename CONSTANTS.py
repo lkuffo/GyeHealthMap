@@ -11,14 +11,14 @@ class CONSTANTS:
             {
                 "id": "all",
                 "name": u"TODOS LOS HOSPITALES",
-                "pacientes": 15891,
+                "pacientes": 71505,
                 "tipo": "N/A",
                 "link": "#"
             },
             {
                 "id": "hlb",
                 "name": u"HOSPITAL LEON BECERRA",
-                "pacientes": 15891,
+                "pacientes": 71505,
                 "tipo": "Infantil",
                 "link": "https://www.bspi.org/hospital_leon_becerra.html"
             }
