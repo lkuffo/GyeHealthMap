@@ -105,16 +105,31 @@ class MapGenerator():
         mappedLocations = list(filter(lambda x: "|" not in x, locations))
         # print set(mappedLocations).difference(set(shapeNames))
         # print len(set(mappedLocations).difference(set(shapeNames)))
-
+        print "Starting dict"
+        tmpDict = {}
+        for elem in mappedLocations:
+            if elem not in tmpDict:
+                tmpDict[elem] = 0
+            tmpDict[elem] += 1
+        print "Finishing dict"
+        print "Starting Polygons"
+        for elem in coordLocations:
+            for i, polygon in enumerate(polygons):
+                poly = prep(polygon)
+                shapeName = shapeNames[i].upper()
+                if poly.contains(elem):
+                    if shapeName not in tmpDict:
+                        tmpDict[shapeName] = 0
+                    tmpDict[shapeName] += 1
+                    break
+        print "Finishing Polygons"
         for i, polygon in enumerate(polygons):
             shapeName = shapeNames[i].upper()
-            poly = prep(polygon)
-            for elem in coordLocations:
-                if poly.contains(elem):
-                    shapeNumbers[i] += 1
-            shapeNumbers[i] += int(len(list(filter(poly.contains, coordLocations))))
-            shapeNumbers[i] += int(len(list(filter(lambda x: x == shapeName, mappedLocations))))
-
+            try:
+                shapeNumbers[i] += tmpDict[shapeName]
+            except:
+                None
+        print sum(tmpDict.values())
 
     def generateMap(self):
         with current_app.open_resource(self.file) as f:
