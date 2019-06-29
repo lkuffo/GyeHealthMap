@@ -29,6 +29,7 @@ class CONSTANTS:
         if load_cie10:
             self.capitulos = self.getCapitulos()
             self.agrupaciones = self.getAgrupaciones()
+            self.all = self.getAllCie10()
 
     def getCapitulos(self):
         capitulos = {}
@@ -44,6 +45,23 @@ class CONSTANTS:
                 "fin": info[3]
             }
         return capitulos
+
+    def getAllCie10(self):
+        cie10 = {}
+        f = open(self.static + "/cie10/cie_all.csv", "r")
+        f.readline()
+        for line in f:
+            info = line.strip().decode('utf-8').split(",")
+            if len(info) > 1:
+                id = info[0]
+                if id[0] == '|':
+                    id = id.replace('|', '')
+                name = info[1]
+                cie10[info[0]] = {
+                    "id": id,
+                    "nombre": name
+                }
+        return cie10
 
     def getAgrupaciones(self):
         agrupaciones = {}

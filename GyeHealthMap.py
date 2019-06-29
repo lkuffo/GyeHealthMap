@@ -40,7 +40,7 @@ def healthMap(institution_id):
                            institution=c.findInstitution(institution_id),
                            capitulos=c.capitulos,
                            agrupacion=c.agrupaciones,
-                           cie10=c.getCIE10forInstitution(institution_id))
+                           cie10=c.all)
 
 @app.route('/obtainMeasures', methods=["POST"])
 def obtainMeasures():

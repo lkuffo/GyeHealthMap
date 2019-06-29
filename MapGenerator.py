@@ -38,6 +38,7 @@ class MapGenerator():
             shapeNormalized[i] = 0
         casosTotales = {}
         f = current_app.open_resource("casos_totales.csv")
+        #f = open("casos_totales.csv")
         for line in f:
             casos, v = line.strip().split(",")
             casosTotales[casos] = float(v)
@@ -64,6 +65,7 @@ class MapGenerator():
 
     def calculateOcurrences(self, polygons, shapeNumbers, shapeNames, cie10=None, capitulo=None, agrupacion=None, edad=None):
         all_points = pd.read_csv(current_app.open_resource("neighboursMapping.csv"))
+        #all_points = pd.read_csv("neighboursMapping.csv")
         all_points.dropna(inplace=True)
         all_points["edad"] = pd.to_numeric(all_points["edad"])
         if cie10:
@@ -96,6 +98,29 @@ class MapGenerator():
         if self.end and self.end != "":
             all_points = all_points[all_points['fecha'] <= self.end]
         locations = all_points["shapeName"].values.tolist()
+
+        # anonimized_values = {}
+        # all_cie10 = all_points["cie10"].values.tolist()
+        # for z, location in enumerate(locations):
+        #     key = "NOT_FOUND"
+        #     if "|" in location:
+        #         lon, lat = location.split("|")
+        #         point = Point(float(lat), float(lon))
+        #         for i, polygon in enumerate(polygons):
+        #             poly = prep(polygon)
+        #             shapeName = shapeNames[i].upper()
+        #             if poly.contains(point):
+        #                 key = shapeName + "|" + all_cie10[z]
+        #                 break
+        #     else:
+        #         key = location.upper() + "|" + all_cie10[z]
+        #     if key not in anonimized_values:
+        #         anonimized_values[key] = 0
+        #     anonimized_values[key] += 1
+        # for k, v in anonimized_values.items():
+        #     print k, "|", v
+        # exit()
+
         strCoordLocations =  list(filter(lambda x: "|" in x, locations))
         coordLocations = []
         for latlon in strCoordLocations:
@@ -132,6 +157,7 @@ class MapGenerator():
         print sum(tmpDict.values())
 
     def generateMap(self):
+        #with open(self.file) as f:
         with current_app.open_resource(self.file) as f:
             shapes = json.load(f)
         usedFilter = None
@@ -185,3 +211,5 @@ class MapGenerator():
         # ACTUALIZACION
         #
 
+# testMapGenerator = MapGenerator("app")
+# testMapGenerator.generateMap()
