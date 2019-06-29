@@ -80,11 +80,11 @@
                     </div>
                     <div class="hm-filter-box">
                         <div class="ui-widget">
-                            <label class="hm-fields-label" for="from">CIE10</label>
+                            <label class="hm-fields-label" for="from">Enfermedad</label>
                             <select id="combobox-cie10">
                                 <option value=""></option>
-                                {%  for elem in cie10 %}
-                                    <option value="{{ elem }}">{{ elem }}</option>
+                                {%  for k, elem in cie10.items() %}
+                                    <option value="{{ elem["id"] }}">{{ elem["id"] + "-" + elem["nombre"] }}</option>
                                 {% endfor %}
                             </select>
                         </div>
