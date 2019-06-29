@@ -58,16 +58,16 @@ $(document).ready(function(){
         this.wrapper = $( "<span>" )
           .addClass( "custom-combobox" )
           .insertAfter( this.element );
-
         this.element.hide();
-        this._createAutocomplete();
+        this._createAutocomplete(this.element.attr('id'));
         this._createShowAllButton();
       },
 
-      _createAutocomplete: function() {
+      _createAutocomplete: function(id) {
         var selected = this.element.children( ":selected" ),
           value = selected.val() ? selected.text() : "";
-
+        console.log("valor", value);
+        console.log("selected", selected);
         this.input = $( "<input class='hm-healthmap-combo-select'>" )
           .appendTo( this.wrapper )
           .val( value )
@@ -75,7 +75,7 @@ $(document).ready(function(){
           .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
           .autocomplete({
             delay: 0,
-            minLength: 0,
+            minLength: (id === "combobox-cie10") ? 3 : 1,
             source: $.proxy( this, "_source" )
           })
           .tooltip({

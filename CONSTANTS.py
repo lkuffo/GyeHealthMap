@@ -54,6 +54,7 @@ class CONSTANTS:
             info = line.strip().decode('utf-8').split(",")
             if len(info) > 1:
                 id = info[0]
+                id = id.replace('"', '')
                 if id[0] == '|':
                     id = id.replace('|', '')
                 name = info[1]
@@ -61,6 +62,7 @@ class CONSTANTS:
                     "id": id,
                     "nombre": name
                 }
+        f.close()
         return cie10
 
     def getAgrupaciones(self):
